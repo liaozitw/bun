@@ -12,5 +12,5 @@ COPY . .
 ENV NODE_ENV=production
 EXPOSE 8080
 
-# 啟動服務
-CMD [ "bun", "run", "src/index.ts" ]
+# 啟i動服務
+CMD [ "bun", "src/index.ts" ]
