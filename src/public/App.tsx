@@ -19,7 +19,7 @@ const App = () => {
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        fetch('https://today.tainanoutlook.com/api/news')
+        fetch('/api/news')
             .then(res => res.json())
             .then((data: ApiResponse) => {
                 if (data.ok) {
