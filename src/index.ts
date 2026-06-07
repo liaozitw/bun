@@ -1,13 +1,18 @@
 import { Hono } from 'hono'
+import { serveStatic } from 'hono/bun'
 
 const app = new Hono()
 
-// 確保這裡有定義首頁的路由
-app.get('/', (c) => {
-  return c.text('Hello Bun + Hono on Render! 網站成功上線啦！')
+// Serve static files
+app.use('/static/*', serveStatic({ root: './src/public' }))
+app.use('/favicon.ico', serveStatic({ path: './src/public/favicon.ico' }))
+
+// Serve index.html for all other routes to support client-side routing if needed
+app.get('/', async (c) => {
+  return c.html(await Bun.file('./src/public/index.html').text())
 })
 
-// 這是讓 Bun 順利啟動並把 Hono 掛載上去的寫法
+// Bun entry point
 export default {
   port: parseInt(process.env.PORT || "8080"),
   fetch: app.fetch,
